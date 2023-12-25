@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../model/product_model.dart';
 import '../view/detail_screen.dart';
 
 Widget productItem(BuildContext context, ProductModel model) {
   return GestureDetector(
-    onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DetailScreen(
-            model: model,
-          ),
-        ),
-      );
-    },
+    onTap: () => Get.to(
+      DetailScreen(
+        model: model,
+      ),
+    ),
     child: Container(
       color: const Color.fromARGB(255, 235, 235, 235),
       child: Column(

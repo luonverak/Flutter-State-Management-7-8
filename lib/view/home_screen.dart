@@ -5,6 +5,7 @@ import '../model/product_model.dart';
 import '../widget/category_item.dart';
 import '../widget/header_app.dart';
 import '../widget/product_item.dart';
+import '../widget/search_style.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,38 +17,8 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
-            const HeaderApp(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                onTap: () {},
-                child: Container(
-                  width: double.infinity,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(width: 1, color: Colors.black),
-                  ),
-                  child: const Row(
-                    children: [
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Icon(Icons.search),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Search product',
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            HeaderApp(),
+            searchStyle(),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(

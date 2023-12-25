@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 import 'category_model.dart';
 
 class ProductModel {
@@ -5,10 +7,10 @@ class ProductModel {
   final String name;
   final double price;
   final String image;
-  late bool favorite;
+  late RxBool favorite;
   final String description;
   final List<String> size;
-  late int counter;
+  late RxInt counter;
   late String? date;
   final int fId;
 
@@ -32,11 +34,11 @@ final List<ProductModel> listProduct = [
     name: 'Cotton Sweatshirt',
     price: 20,
     image: 'asset/image/Loose-Fit-T-Shirt (3).jpg',
-    favorite: false,
+    favorite: false.obs,
     description:
         'DESIGNED BY MR PORTER. A crew-neck T-shirt is the foundation for building so many outfits around, which is why it\'s always useful to have a few on hand. Our black Mr P. one has a regular fit that feels comfortable whether it\'s worn alone or layered. The cotton-jersey fabric is silicone-washed for a soft handle.',
     size: ['S', 'X', 'XL', 'XXL'],
-    counter: 1,
+    counter: 1.obs,
     date: 'New',
     fId: listCategory[0].id,
   ),
@@ -45,11 +47,11 @@ final List<ProductModel> listProduct = [
     name: 'Baggy Sweatshirt',
     price: 15,
     image: 'asset/image/Hoodie-Jacket (1).jpg',
-    favorite: false,
+    favorite: false.obs,
     description:
         'DESIGNED BY MR PORTER. A crew-neck T-shirt is the foundation for building so many outfits around, which is why it\'s always useful to have a few on hand. Our black Mr P. one has a regular fit that feels comfortable whether it\'s worn alone or layered. The cotton-jersey fabric is silicone-washed for a soft handle.',
     size: ['S', 'X', 'XL', 'XXL'],
-    counter: 1,
+    counter: 1.obs,
     date: 'New',
     fId: listCategory[0].id,
   ),
@@ -58,11 +60,11 @@ final List<ProductModel> listProduct = [
     name: 'Baggy Sweatshirt',
     price: 10,
     image: 'asset/image/T-SHIRT (3).jpg',
-    favorite: false,
+    favorite: false.obs,
     description:
         'DESIGNED BY MR PORTER. A crew-neck T-shirt is the foundation for building so many outfits around, which is why it\'s always useful to have a few on hand. Our black Mr P. one has a regular fit that feels comfortable whether it\'s worn alone or layered. The cotton-jersey fabric is silicone-washed for a soft handle.',
     size: ['S', 'X', 'XL', 'XXL'],
-    counter: 1,
+    counter: 1.obs,
     fId: listCategory[1].id,
   ),
   ProductModel(
@@ -70,11 +72,11 @@ final List<ProductModel> listProduct = [
     name: 'Baggy Sweatshirt',
     price: 20,
     image: 'asset/image/Windbeaker-With-Hood (2).jpg',
-    favorite: false,
+    favorite: false.obs,
     description:
         'DESIGNED BY MR PORTER. A crew-neck T-shirt is the foundation for building so many outfits around, which is why it\'s always useful to have a few on hand. Our black Mr P. one has a regular fit that feels comfortable whether it\'s worn alone or layered. The cotton-jersey fabric is silicone-washed for a soft handle.',
     size: ['S', 'X', 'XL', 'XXL'],
-    counter: 1,
+    counter: 1.obs,
     fId: listCategory[1].id,
   ),
   ProductModel(
@@ -82,11 +84,11 @@ final List<ProductModel> listProduct = [
     name: 'Baggy Sweatshirt',
     price: 20,
     image: 'asset/image/T-SHIRTS (7).jpg',
-    favorite: false,
+    favorite: false.obs,
     description:
         'DESIGNED BY MR PORTER. A crew-neck T-shirt is the foundation for building so many outfits around, which is why it\'s always useful to have a few on hand. Our black Mr P. one has a regular fit that feels comfortable whether it\'s worn alone or layered. The cotton-jersey fabric is silicone-washed for a soft handle.',
     size: ['S', 'X', 'XL', 'XXL'],
-    counter: 1,
+    counter: 1.obs,
     fId: listCategory[0].id,
   ),
   ProductModel(
@@ -94,11 +96,11 @@ final List<ProductModel> listProduct = [
     name: 'Cloud X3',
     price: 10,
     image: 'asset/image/shoe1.webp',
-    favorite: false,
+    favorite: false.obs,
     description:
         'DESIGNED BY MR PORTER. A crew-neck T-shirt is the foundation for building so many outfits around, which is why it\'s always useful to have a few on hand. Our black Mr P. one has a regular fit that feels comfortable whether it\'s worn alone or layered. The cotton-jersey fabric is silicone-washed for a soft handle.',
     size: ['S', 'X', 'XL', 'XXL'],
-    counter: 1,
+    counter: 1.obs,
     fId: listCategory[2].id,
   ),
   ProductModel(
@@ -106,11 +108,11 @@ final List<ProductModel> listProduct = [
     name: 'Cloud X3',
     price: 10,
     image: 'asset/image/shoe7.png',
-    favorite: false,
+    favorite: false.obs,
     description:
         'DESIGNED BY MR PORTER. A crew-neck T-shirt is the foundation for building so many outfits around, which is why it\'s always useful to have a few on hand. Our black Mr P. one has a regular fit that feels comfortable whether it\'s worn alone or layered. The cotton-jersey fabric is silicone-washed for a soft handle.',
     size: ['S', 'X', 'XL', 'XXL'],
-    counter: 1,
+    counter: 1.obs,
     fId: listCategory[2].id,
   )
 ];

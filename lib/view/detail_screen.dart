@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
+import 'package:stat_management/controller/product_cotroller.dart';
 
 import '../model/product_model.dart';
 
-class DetailScreen extends StatefulWidget {
-  const DetailScreen({super.key, required this.model});
+class DetailScreen extends StatelessWidget {
+  DetailScreen({super.key, required this.model});
   final ProductModel model;
-
-  @override
-  State<DetailScreen> createState() => _DetailScreenState();
-}
-
-class _DetailScreenState extends State<DetailScreen> {
+  final controller = Get.put(ProductController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +22,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   width: double.infinity,
                   height: MediaQuery.sizeOf(context).height / 2,
                   child: Image.asset(
-                    widget.model.image,
+                    model.image,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -35,7 +32,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () => Get.back(),
                         child: Container(
                           width: 45,
                           height: 45,
@@ -50,31 +47,31 @@ class _DetailScreenState extends State<DetailScreen> {
                           ),
                         ),
                       ),
-                      Spacer(),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            widget.model.favorite = !widget.model.favorite;
-                          });
-                        },
-                        child: Container(
-                          width: 45,
-                          height: 45,
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(10),
+                      const Spacer(),
+                      Obx(
+                        () => GestureDetector(
+                          onTap: () {
+                            model.favorite.value = !model.favorite.value;
+                          },
+                          child: Container(
+                            width: 45,
+                            height: 45,
+                            decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: (model.favorite.value == false)
+                                ? const Icon(
+                                    Icons.favorite_border,
+                                    color: Colors.white,
+                                    size: 30,
+                                  )
+                                : const Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                    size: 30,
+                                  ),
                           ),
-                          child: (widget.model.favorite == false)
-                              ? const Icon(
-                                  Icons.favorite_border,
-                                  color: Colors.white,
-                                  size: 30,
-                                )
-                              : const Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                  size: 30,
-                                ),
                         ),
                       )
                     ],
@@ -87,29 +84,17 @@ class _DetailScreenState extends State<DetailScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        widget.model.name,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      const Spacer(),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.shopping_cart_outlined,
-                          size: 30,
-                        ),
-                      )
-                    ],
+                  Text(
+                    model.name,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   Row(
                     children: [
                       Text(
-                        'Price ${widget.model.price} \$',
+                        'Price ${model.price} \$',
                         style: const TextStyle(
                           fontSize: 18,
                           color: Colors.red,
@@ -126,27 +111,25 @@ class _DetailScreenState extends State<DetailScreen> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                widget.model.counter <= 1
-                                    ? widget.model.counter
-                                    : setState(() {
-                                        widget.model.counter--;
-                                      });
+                                model.counter.value <= 1
+                                    ? model.counter.value
+                                    : model.counter.value--;
                               },
                               icon: const Icon(
                                 Icons.remove,
                                 color: Colors.white,
                               ),
                             ),
-                            Text(
-                              '${widget.model.counter}',
-                              style: const TextStyle(
-                                  fontSize: 18, color: Colors.white),
+                            Obx(
+                              () => Text(
+                                '${model.counter.value}',
+                                style: const TextStyle(
+                                    fontSize: 18, color: Colors.white),
+                              ),
                             ),
                             IconButton(
                               onPressed: () {
-                                setState(() {
-                                  widget.model.counter++;
-                                });
+                                model.counter.value++;
                               },
                               icon: const Icon(
                                 Icons.add,
@@ -169,11 +152,11 @@ class _DetailScreenState extends State<DetailScreen> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        for (int i = 0; i < widget.model.size.length; i++)
+                        for (int i = 0; i < model.size.length; i++)
                           Padding(
                             padding: const EdgeInsets.only(right: 15, top: 5),
                             child: CircleAvatar(
-                              child: Text(widget.model.size[i]),
+                              child: Text(model.size[i]),
                             ),
                           ),
                       ],
@@ -193,7 +176,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     height: 10,
                   ),
                   ReadMoreText(
-                    widget.model.description,
+                    model.description,
                     textAlign: TextAlign.justify,
                     style: const TextStyle(fontSize: 16),
                     trimLines: 3,
@@ -213,20 +196,23 @@ class _DetailScreenState extends State<DetailScreen> {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(18.0),
-        child: Container(
-          width: double.infinity,
-          height: 60,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.pink[400],
-          ),
-          alignment: Alignment.center,
-          child: const Text(
-            'Add to cart',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+        child: GestureDetector(
+          onTap: () async => controller.addCart(model),
+          child: Container(
+            width: double.infinity,
+            height: 60,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.pink[400],
+            ),
+            alignment: Alignment.center,
+            child: const Text(
+              'Add to cart',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
