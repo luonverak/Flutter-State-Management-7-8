@@ -1,52 +1,102 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:stat_management/controller/counter_controller.dart';
-import 'package:stat_management/view/second_screen.dart';
+
+import '../model/category_model.dart';
+import '../model/product_model.dart';
+import '../widget/category_item.dart';
+import '../widget/header_app.dart';
+import '../widget/product_item.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
-  final controller = Get.put(CounterController());
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('title'.trArgs(['title'])),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Get.snackbar('Hello ', 'Tos der lg');
-            },
-            icon: const Icon(Icons.notifications),
-          ),
-          IconButton(
-            onPressed: () {
-              Get.updateLocale(
-                Locale('kh', 'KHR'),
-              );
-            },
-            icon: const Icon(Icons.language),
-          ),
-          IconButton(
-            onPressed: () async => controller.mode(),
-            icon: const Icon(Icons.dark_mode),
-          ),
-          IconButton(
-            onPressed: () async => Get.to(SecondScreen()),
-            icon: const Icon(Icons.arrow_forward_ios),
-          ),
-        ],
-      ),
-      body: Obx(
-        () => Center(
-          child: Text(
-            '${controller.counter.value}',
-            style: const TextStyle(fontSize: 30),
-          ),
+      drawer: const Drawer(),
+      body: SafeArea(
+        child: ListView(
+          children: [
+            const HeaderApp(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                  width: double.infinity,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(width: 1, color: Colors.black),
+                  ),
+                  child: const Row(
+                    children: [
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Icon(Icons.search),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        'Search product',
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  for (int i = 0; i < listCategory.length; i++)
+                    CategoryItem(
+                      model: listCategory[i],
+                    )
+                ],
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 8, top: 20, right: 8),
+              child: Row(
+                children: [
+                  Text(
+                    'All Product',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Spacer(),
+                  Icon(Icons.arrow_forward)
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, top: 10, right: 8),
+              child: SizedBox(
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 15,
+                  shrinkWrap: true,
+                  primary: false,
+                  childAspectRatio: 1 / 1.75,
+                  children: List.generate(
+                    listProduct.length,
+                    (index) => productItem(
+                      context,
+                      listProduct[index],
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async => controller.increase(),
-        child: const Icon(Icons.add),
       ),
     );
   }
